@@ -7,31 +7,34 @@ on:
 
 jobs:
   test-backend:
-    runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: backend
+  defaults:
+    run:
+      working-directory: backend
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt pytest
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt pytest
 
-      - name: Run tests
-        env:
-          PYTHONPATH: ${{ github.workspace }}/backend
-        run: |
-          python -m pytest -vv
+    - name: Run tests
+      env:
+        PYTHONPATH: ${{ github.workspace }}/backend
+        OPENAI_API_KEY: "dummy-key-for-ci"
+        OPENAI_MODEL: "gpt-4.1-mini"
+      run: |
+        python -m pytest -vv
+
 
   build-images:
     runs-on: ubuntu-latest
