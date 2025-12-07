@@ -6,7 +6,7 @@ on:
     branches: [ main, develop ]
 
 jobs:
-    test-backend:
+  test-backend:
     runs-on: ubuntu-latest
 
     defaults:
@@ -32,8 +32,6 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/backend
         run: |
           python -m pytest -vv
-
-
 
   build-images:
     runs-on: ubuntu-latest
